@@ -1,0 +1,28 @@
+Summer 2022 Data Science Intern Challenge 
+Question 1: 
+
+a.	Think about what could be going wrong with our calculation. Think about a better way to evaluate this data. 
+Some extreme high or low value orders may mislead the AOV. We can separate and compare orders between high value customers and Average value customers instead.
+b.	What metric would you report for this dataset?
+High value customers (orders over $2000) 
+Average value customers (orders under $2000) 
+By identifying which shops have more high-value customers, we may acquire customers there through marketing strategies like promotions that attract more high-value customers. 
+c.	What is its value?
+Average value customers AOV is : $ 302.5805145 per order
+High value customers AOV is : $ 225901.5873 per order
+There are relatively more high value customers at shop no.42 and shop no.78 than at other shops.
+
+Question 2: 
+
+a.	How many orders were shipped by Speedy Express in total?
+SELECT * FROM Orders WHERE ShipperID = 1;
+54 orders were shipped by Speedy Express in total.
+b.	What is the last name of the employee with the most orders?
+SELECT t1.LastName, sum(t2.Quantity) as Quantity, t3.OrderID from Employees as t1 LEFT JOIN Orders as t3 on t1.EmployeeID = t3.EmployeeID LEFT JOIN OrderDetails as t2 on t3.OrderID = t2.OrderID GROUP BY t1.LastName ORDER BY Quantity DESC;
+The last name of the employee with the most orders is Peacock.
+c.	What product was ordered the most by customers in Germany?
+SELECT t1.ProductID,sum(t1.Quantity) as Quantity,t2.ProductName FROM 
+(SELECT * FROM OrderDetails where OrderID in (Select OrderID from (SELECT OrderID,CustomerID FROM Orders Where CustomerID in (SELECT CustomerID FROM [Customers] Where Country = 'Germany'))))as t1 left join Products as t2 on t1.ProductID = t2.ProductID GROUP BY ProductName ORDER BY Quantity DESC;
+Boston Crab Meat was ordered the most by customers in Germany.
+
+Thank you for your attention to my work, Have a nice day!
